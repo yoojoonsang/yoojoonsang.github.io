@@ -1,1 +1,2 @@
-# yoojoonsang.github.io
+bundle install
+bundle exec jekyll s
