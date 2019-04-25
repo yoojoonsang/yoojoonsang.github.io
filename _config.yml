@@ -1,5 +1,5 @@
 # Site settings
-title: Jerry's Records
+title: Jerry's Notes
 email: phoibos@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Welcome to my awesome blog.
@@ -13,9 +13,15 @@ github: #your github username
 linkedin: #linkedin username
 
 
-
 # Build settings
 markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: html
+    css_class   : 'highlight'
+
 
 sass:
     style: compressed

@@ -1,6 +1,24 @@
 [
 
 	{
+		"title"    : "Generics in Kotlin #2",
+		"category" : "jekyllupdate",
+		"desc"     : "자바 설계자는 소거(erasure)라는 기술을 사용해 제네릭을 구현.제네릭 이전의 자바와 호환 가능하도록 하기 위해 소거를 도입했다고 함.소거는 컴파일하는하는 동안 타입 매개변수를 삭제하는 프로세스.이에 따라, ‘fun print(list: List)&#39;과 &#39;fun print(list: List)&#39;는 소거 후 동일한 함수 시그니처를 갖게됨.런타임에서는 ...",
+		"tags"     : "",
+		"url"      : "/2019/generics-in-kotlin2/",
+		"date"     : "2019-04-16 00:00:00 +0900"
+	} ,
+
+	{
+		"title"    : "Generics in Kotlin #1",
+		"category" : "jekyllupdate",
+		"desc"     : "자바에서는 어떤 타입을 저장해야 할지 알려주지 않고도 List를 선언하는게 가능합니다.여기에는 문자열을 저장할 수도 있고, 큰 수를 저장할 수도 있습니다.List list = new ArrayList&amp;lt;&amp;gt;();list.add(&quot;Hello&quot;);list.add(new BigDecimal(10.5));하지만 코틀린은 아래와 같은 코드를 허용하지 않...",
+		"tags"     : "",
+		"url"      : "/2019/generics-in-kotlin/",
+		"date"     : "2019-04-16 00:00:00 +0900"
+	} ,
+
+	{
 		"title"    : "Sample post",
 		"category" : "jekyllupdate",
 		"desc"     : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u...",
