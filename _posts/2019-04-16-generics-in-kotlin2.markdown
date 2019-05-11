@@ -47,7 +47,7 @@ public class Entry {
 ```kotlin
 fun <T> getElementsOfType(list: List<Any>): List<T> {
     //타입 T에 대한 새 리스트를 생성한다.
-    var newList = arrayListOf<T>()
+    var newList = arrayListOf<T>()	//에러 발생
 
     // list에서 타입 T에 해당하는 원소를 모두 찾고, newList에 추가한다.
     for (element in list) {
