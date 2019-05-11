@@ -3,10 +3,10 @@
 	{
 		"title"    : "Generics in Kotlin #2",
 		"category" : "jekyllupdate",
-		"desc"     : "자바 설계자는 소거(erasure)라는 기술을 사용해 제네릭을 구현.제네릭 이전의 자바와 호환 가능하도록 하기 위해 소거를 도입했다고 함.소거는 컴파일하는하는 동안 타입 매개변수를 삭제하는 프로세스.이에 따라, ‘fun print(list: List)&#39;과 &#39;fun print(list: List)&#39;는 소거 후 동일한 함수 시그니처를 갖게됨.런타임에서는 ...",
+		"desc"     : "자바 설계자는 소거(erasure)라는 기술을 사용해 제네릭을 구현했습니다. 소거는 컴파일 시점에 타입 매개변수를 삭제하는 프로세스로 제네릭과 제네릭 이전의 자바를 호환하고자 도입했다고 합니다. 예를 들어, 아래와 같은 제네릭 클래스가 있다고 해봅시다.public class Entry&amp;lt;K, V&amp;gt; {    private K key;    pr...",
 		"tags"     : "",
 		"url"      : "/2019/generics-in-kotlin2/",
-		"date"     : "2019-04-16 00:00:00 +0900"
+		"date"     : "2019-04-16 00:00:00 -0700"
 	} ,
 
 	{
@@ -15,25 +15,7 @@
 		"desc"     : "자바에서는 어떤 타입을 저장해야 할지 알려주지 않고도 List를 선언하는게 가능합니다.여기에는 문자열을 저장할 수도 있고, 큰 수를 저장할 수도 있습니다.List list = new ArrayList&amp;lt;&amp;gt;();list.add(&quot;Hello&quot;);list.add(new BigDecimal(10.5));하지만 코틀린은 아래와 같은 코드를 허용하지 않...",
 		"tags"     : "",
 		"url"      : "/2019/generics-in-kotlin/",
-		"date"     : "2019-04-16 00:00:00 +0900"
-	} ,
-
-	{
-		"title"    : "Sample post",
-		"category" : "jekyllupdate",
-		"desc"     : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi u...",
-		"tags"     : "",
-		"url"      : "/2018/sample-post/",
-		"date"     : "2018-01-15 11:40:02 +0900"
-	} ,
-
-	{
-		"title"    : "Welcome to Jekyll!",
-		"category" : "jekyllupdate",
-		"desc"     : "You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run je...",
-		"tags"     : "",
-		"url"      : "/2018/welcome-to-jekyll/",
-		"date"     : "2018-01-15 11:40:02 +0900"
+		"date"     : "2019-04-16 00:00:00 -0700"
 	} 
 
 ]

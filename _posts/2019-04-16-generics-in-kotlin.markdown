@@ -13,7 +13,7 @@ list.add(new BigDecimal(10.5));
 ```
 <br>
 하지만 코틀린은 아래와 같은 코드를 허용하지 않습니다. 
-일단 타입이 없으면 컴파일부터 되지 않습니다. 
+일단 타입이 없으면 컴파일부터 되지 않기 때문입니다. 
 
 ```kotlin
 val list = arrayListOf<>() //compile error
