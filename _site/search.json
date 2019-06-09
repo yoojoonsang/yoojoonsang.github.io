@@ -1,6 +1,15 @@
 [
 
 	{
+		"title"    : "Generics in Kotlin #3",
+		"category" : "jekyllupdate",
+		"desc"     : "  무공변성(Invariance)addInteger라는 이름의 함수를 하나 선언 해보겠습니다. 이 함수는 MutableList&amp;lt;Any&amp;gt; 타입의 파라미터를 입력받고, 여기에 숫자 42를 하나 추가하는 일을 하고 있습니다. 얼핏 보았을 때에는 아무런 문제가 없어보입니다.fun addInteger(list: MutableList&amp;lt;Any&amp;gt...",
+		"tags"     : "",
+		"url"      : "/2019/generics-in-kotlin3/",
+		"date"     : "2019-06-03 00:00:00 -0700"
+	} ,
+
+	{
 		"title"    : "Generics in Kotlin #2",
 		"category" : "jekyllupdate",
 		"desc"     : "자바 설계자는 소거(erasure)라는 기술을 사용해 제네릭을 구현했습니다. 소거는 컴파일 시점에 타입 매개변수를 삭제하는 프로세스로 제네릭과 제네릭 이전의 자바를 호환하고자 도입했다고 합니다. 예를 들어, 아래와 같은 제네릭 클래스가 있다고 해봅시다.public class Entry&amp;lt;K, V&amp;gt; {    private K key;    pr...",

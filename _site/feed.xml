@@ -1,5 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-12T06:22:36-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jerry’s Notes</title><subtitle>Welcome to my awesome blog.
-</subtitle><entry><title type="html">Generics in Kotlin #1</title><link href="http://localhost:4000/2019/generics-in-kotlin/" rel="alternate" type="text/html" title="Generics in Kotlin #1" /><published>2019-04-16T00:00:00-07:00</published><updated>2019-04-16T00:00:00-07:00</updated><id>http://localhost:4000/2019/generics-in-kotlin</id><content type="html" xml:base="http://localhost:4000/2019/generics-in-kotlin/">&lt;p&gt;자바에서는 어떤 타입을 저장해야 할지 알려주지 않고도 List를 선언하는게 가능합니다.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-06-09T08:34:48-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Jerry’s Notes</title><subtitle>Welcome to my awesome blog.
+</subtitle><entry><title type="html">Generics in Kotlin #3</title><link href="http://localhost:4000/2019/generics-in-kotlin3/" rel="alternate" type="text/html" title="Generics in Kotlin #3" /><published>2019-06-03T00:00:00-07:00</published><updated>2019-06-03T00:00:00-07:00</updated><id>http://localhost:4000/2019/generics-in-kotlin3</id><content type="html" xml:base="http://localhost:4000/2019/generics-in-kotlin3/">&lt;blockquote&gt;
+  &lt;p&gt;무공변성(Invariance)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;addInteger라는 이름의 함수를 하나 선언 해보겠습니다. 이 함수는 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입의 파라미터를 입력받고, 여기에 숫자 42를 하나 추가하는 일을 하고 있습니다. 얼핏 보았을 때에는 아무런 문제가 없어보입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MutableList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이번에는 “abc”, “def” 두개의 문자열로 구성된 mutableList를 선언하고, addInteger에 전달해보겠습니다. 정상동작 할것 같지만 이 코드는 컴파일이 되지 않습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;strings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mutableListOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;abc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;def&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;addInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;					&lt;span class=&quot;c1&quot;&gt;// 만약 이 줄이 컴파일 된다면
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;// 이 줄을 실행할 때 에러가 발생
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/mutablelist-compile-error.png&quot; alt=&quot;스크린샷1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이상하죠? &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;String&lt;/code&gt;은 어찌됐건 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Any&lt;/code&gt;의 하위 타입인데, 어째서 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입을 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입에 넘길수가 없는걸까요? 그 이유는 바로 코틀린에서 타입 매개변수를 기본적으로 &lt;strong&gt;무공변성&lt;/strong&gt;(Invariance)으로 만들고 있기 때문입니다.&lt;/p&gt;
+
+&lt;p&gt;다시 말해서, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;String&lt;/code&gt;이 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Any&lt;/code&gt;의 하위 타입일지라도, 이와는 별개로 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt;은 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt;의 하위타입이 아닐 수도 있다는 얘기입니다.  &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt;과 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt; 아무런 관계를 갖지 않게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;저처럼 이 개념이 생소한 분들은 왜 이런게 필요할까 의아할수도 있을것 같습니다. 그래서 반대로 가정을 해보겠습니다. 만약 컴파일러가 위의 식을 받아들인다고 하면 어떻게 될까요?&lt;/p&gt;
+
+&lt;p&gt;결과는 정수를 문자열 리스트 뒤에 추가할 수 있게 되고, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MutableList&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt;에 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Integer&lt;/code&gt;가 들어가게 되는 타입 불일치가 발생하게 됩니다. 뿐만 아니라 strings의 원소에 문자열 관련 연산을 하려고 할 때 에러가 발생하게 될 수 있게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;공변성(Covariance)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그렇다면 아래의 경우는 어떨까요?&lt;/p&gt;
+
+&lt;p&gt;이번에도 역시 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입의 변수를 선언하여 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입의 파라미터를 받는 함수 printContents에 넘기고 있습니다. 단 이번에는 &lt;strong&gt;MutableList&lt;/strong&gt;가 아니라 &lt;strong&gt;List&lt;/strong&gt;입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;strings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;listOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;abc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;def&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printContents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;// abc, def
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printContents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;joinToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;어라? 이번에는 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입의 값을 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt;를 파라미터로 받는 함수에 전달해도 컴파일이 잘됩니다.  실행도 문제없이 잘 됩니다. 이게 가능한 이유는 List의 경우, 타입 파라미터를 &lt;strong&gt;공변성&lt;/strong&gt;(Covariance)으로 설정하였기 때문입니다.  이렇게 제네릭 타입 사이에도 하위 타입 관계가 성립하면 그 제네릭 타입을 공변적(Covariant)이라고 합니다.&lt;/p&gt;
+
+&lt;p&gt;실제로 List의 구현을 살펴보면 타입 파라미터의 접두사로 out 키워드를 추가해준걸 확인할 수 있는데, out 키워드를 추가함으로써 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt; 이  &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt;의 하위 타입으로 인식되게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/list-signature.png&quot; alt=&quot;스크린샷1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;반대로 MutableList의 경우에는 타입 파라미터만 명시된걸 확인할 수 있습니다. 이 경우에는 코틀린에서 타입 매개변수를 기본적으로 무공변성으로 만들고 있기 때문에  &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/code&gt; 가  &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;List&lt;span class=&quot;nt&quot;&gt;&amp;lt;Any&amp;gt;&lt;/span&gt;&lt;/code&gt;의 하위 타입으로 인식되지 않안덨 것입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/mutablelist-signature.png&quot; alt=&quot;스크린샷1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;반공변성(Contravariance)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;반공변성(Contravariance)이라는 것도 있습니다. 정확히 공변성의 반대이데, 타입 파라미터를 반공변성으로 설정하면, 타입 자체에서 타입 매개변수 간의 관계가 역전됩니다.&lt;/p&gt;
+
+&lt;p&gt;이번에도 예를 통해 살펴보겠습니다. 우선 Food 클래스와 이를 상속하는 FastFood 클래스, 그리고 FastFood 클래스를 상속하는 Burger 클래스를 정의해 보겠습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Food&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FastFood&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Food&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Burger&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FastFood&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 Food 클래스와 그 하위 클래스들을 소비할 Consumer 클래스들을 만들어 보겠습니다. EveryBody 클래스는 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Food&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입으로 Food 클래스를 ModernPeople 클래스는 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입으로 FastFood 클래스를, 마지막으로  American 클래스는 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Burger&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입으로 Burger 클래스를 소비할 것입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;consume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EveryBody&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Food&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;consume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Food&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Eat Food&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ModernPeople&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FastFood&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;consume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FastFood&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Eat Fast Food&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;American&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;consume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Eat Burger&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 때 타입 파라미터의 접두어가 없으므로 Consumer 클래스 간에는 무공변성이 유지됩니다.  따라서 서로 상/하위 타입의 개념이 없게되고, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Food&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입이 필요한 곳에는 EveryBody 클래스, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt;가 필요한 곳에는 ModernPeople 클래스, 마지막으로 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Burger&amp;gt;&lt;/span&gt;&lt;/code&gt; 타입이 필요한 곳에는 American 클래스가 할당 될 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;foodConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Food&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EveryBody&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;fastFoodConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FastFood&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModernPeople&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;burgerConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;American&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 이제 타입 파라미터의 접두어로 in을 붙여주게 되면, Consumer 클래스에서 타입 파라미터 간의 관계가 역전됩니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;consume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 아래와 같은 순서로 타입이 역전됨
+// Consumer&amp;lt;Burger&amp;gt;  &amp;lt;-  Consumer&amp;lt;FastFood&amp;gt;  &amp;lt;-  Consumer&amp;lt;Food&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이에 따라 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Burger&amp;gt;&lt;/span&gt;&lt;/code&gt;가 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt;의 슈퍼타입이 되고, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt;가 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Food&amp;gt;&lt;/span&gt;&lt;/code&gt;의 슈퍼타입이 되게 됩니다. 그리고 그 결과, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;Burger&amp;gt;&lt;/span&gt;&lt;/code&gt;가 필요한 곳에&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt;나 &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Consumer&lt;span class=&quot;nt&quot;&gt;&amp;lt;FastFood&amp;gt;&lt;/span&gt;&lt;/code&gt;를 할당할 수 있게 됩니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;foodConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EveryBody&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;fastFoodConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModernPeople&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;burgerConsumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Burger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;American&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">무공변성(Invariance)</summary></entry><entry><title type="html">Generics in Kotlin #1</title><link href="http://localhost:4000/2019/generics-in-kotlin/" rel="alternate" type="text/html" title="Generics in Kotlin #1" /><published>2019-04-16T00:00:00-07:00</published><updated>2019-04-16T00:00:00-07:00</updated><id>http://localhost:4000/2019/generics-in-kotlin</id><content type="html" xml:base="http://localhost:4000/2019/generics-in-kotlin/">&lt;p&gt;자바에서는 어떤 타입을 저장해야 할지 알려주지 않고도 List를 선언하는게 가능합니다.
 여기에는 문자열을 저장할 수도 있고, 큰 수를 저장할 수도 있습니다.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
@@ -10,12 +146,14 @@
 하지만 코틀린은 아래와 같은 코드를 허용하지 않습니다. 
 일단 타입이 없으면 컴파일부터 되지 않기 때문입니다.&lt;/p&gt;
 
+&lt;p&gt;참고로 자바는 1.5버전부터 제네릭을 도입했기 때문에 이전 버전과 호환성을 유지하기 위해 타입이 명시되지 않은 제네릭 타입을 허용해준다고 합니다.&lt;/p&gt;
+
 &lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrayListOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&amp;gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//compile error
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;../../images/list-without-type.png&quot; alt=&quot;스크린샷1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
-타입은 꺾쇠(&amp;lt;&amp;gt;) 사이에 명시해주거나, 컴파일러가 타입을 유추할 수 있도록 선언과 동시에 초기화를 해주는 방식으로 전달해 줄 수 있습니다.&lt;/p&gt;
+타입은 꺾쇠(&amp;lt;&amp;gt;) 사이에 명시해주거나, 컴파일러가 타입을 추론할 수 있도록 선언과 동시에 초기화를 해주는 방식으로 전달해 줄 수 있습니다.&lt;/p&gt;
 
 &lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;list1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrayListOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;()&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;list2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrayListOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -41,7 +179,7 @@
 
 &lt;p&gt;&lt;br /&gt;
 String과 BigDecimal 뿐만 아니라 더 많은 타입을 다뤄야 할 때에는 위의 코드를 복사하고 타입만 바꿔 사용할 수도 있습니다.
-하지만 제네릭 함수를 사용하는 방법 또한 선택해 볼 수 있습니다. 
+하지만 특정 타입 외에도 모든 타입을 다루고 싶다면 제네릭 함수를 사용하는 방법 또한 선택해 볼 수 있습니다. 
 방법은 간단합니다.
 함수 이름 앞에 타입 파라미터를 추가하고 리스트의 원소 타입을 똑같이 바꿔주면 모든 타입의 리스트를 파라미터로 받을 수 있게 됩니다.&lt;/p&gt;
 
@@ -138,7 +276,7 @@ Number 클래스는 모든 numeric type의 부모이며 이미 toInt 함수를 �
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;코틀린 또한 JVM을 위한 언어로 설계되었기 때문에 역시 소거의 개념이 존재합니다. 아래의 코드를 살펴보면, 일단 타입 파라미터 T에 대한 리스트를 생성하는 부분에서 에러가 나타납니다. 만약 아래의 코드가 컴파일 된다면 런타임에 타입 매개변수에 대한 어떠한 타입 정보도 제공 할 수 없기 때문입니다.&lt;/p&gt;
+&lt;p&gt;코틀린 또한 JVM을 위한 언어로 설계되었기 때문에 역시 소거의 개념이 존재합니다. 아래의 코드를 살펴보면, 일단 타입 파라미터 T에 대한 리스트를 생성하는 부분에서 에러가 나타납니다. 만약 아래의 코드가 컴파일 된다면 런타임 때 타입 매개변수에 대한 어떠한 정보도 제공 할 수 없기 때문입니다.&lt;/p&gt;
 
 &lt;div class=&quot;language-kotlin highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getElementsOfType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;):&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;//타입 T에 대한 새 리스트를 생성한다.
@@ -158,7 +296,7 @@ Number 클래스는 모든 numeric type의 부모이며 이미 toInt 함수를 �
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;실제로도 getElementsOfType 함수를 컴파일하고 다시 디컴파일 해보면 어느 곳에서도 타입 파라미터 매개변수에 대한 단서를 찾아볼 수 없음을 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;실제로도 getElementsOfType 함수를 컴파일하고 다시 디컴파일 해보면 어느 곳에서도 타입 매개변수에 대한 단서를 찾아볼 수 없음을 확인할 수 있습니다.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getElementsOfType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
