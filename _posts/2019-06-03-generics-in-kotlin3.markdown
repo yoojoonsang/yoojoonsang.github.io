@@ -51,7 +51,8 @@ fun main() {
 
 ```kotlin
 fun main() {
-    val strings = listOf("abc", "def")printContents(strings)	// abc, def
+    val strings = listOf("abc", "def")
+    printContents(strings)	// abc, def
 }
 
 fun printContents(list: List<Any>) {

@@ -42,16 +42,30 @@ public class Entry {
 
 <br>
 
+
+
+```java
+Entry entry = new Entry("key", BigDecimal.ONE);
+
+if (entry.getKey() instanceof BigDecimal) {
+    System.out.println("key is a BigDecimal");
+} else {
+    System.out.println("Key is not a BigDecimal");
+}
+```
+
+<br>
+
 코틀린 또한 JVM을 위한 언어로 설계되었기 때문에 역시 소거의 개념이 존재합니다. 아래의 코드를 살펴보면, 일단 타입 파라미터 T에 대한 리스트를 생성하는 부분에서 에러가 나타납니다. 만약 아래의 코드가 컴파일 된다면 런타임 때 타입 매개변수에 대한 어떠한 정보도 제공 할 수 없기 때문입니다.
 
 ```kotlin
 fun <T> getElementsOfType(list: List<Any>): List<T> {
     //타입 T에 대한 새 리스트를 생성한다.
-    var newList = arrayListOf<T>()	//에러 발생
+    var newList = arrayListOf<T>()	
 
     // list에서 타입 T에 해당하는 원소를 모두 찾고, newList에 추가한다.
     for (element in list) {
-        if (element is T) {
+        if (element is T) {		//에러 발생
             newList.add(element)
         }
     }
@@ -88,7 +102,7 @@ public List getElementsOfType(List list) {
 |        구분        |                             설명                             |                    예                    |
 | :----------------: | :----------------------------------------------------------: | :--------------------------------------: |
 | 구체화 가능한 타입 |         런타임에 타입 정보를 점검 받을 수 있는 타입          | 비 제네릭 타입 (String, BigDecimal, ...) |
-|   비 구체화 타입   | 소거의 영향에 의해 타입 정보의 일부 또는 전체가 런타임에 손실되도록  받은 타입 |               제네릭 타입                |
+|   비 구체화 타입   | 소거의 영향에 의해 타입 정보의 일부 또는 전체가 런타임에 손실되는 타입 |               제네릭 타입                |
 
 <br>
 
@@ -144,27 +158,9 @@ public static final void main() {
 }
 ```
 
-<br>한편, 자바의 경우에는 타입 매개변수 T에 대한 리스트를 생성하는 부분에서는 아무런 에러가 발생하지 않습니다. 대신 리스트의 원소가 타입 매개변수 T의 인스턴스인지 확인하는 부분에서 에러가 발생하는데, 이 부분에서 코틀린과 차이가 있습니다.
-
-```java
-public <T> List<T> getElementsOfType(List list) {
-    List<T> newList = new ArrayList();
-
-    for (Object element : list) {
-      if (element instanceof T) {	//에러 발생
-        newList.add(element);
-      }
-    }
-
-    return newList;
-}
-```
-
-![](../../images/type-reased-java.png)
-
 <br>
 
-자바의 경우에는 아래와 같이 리스트의 타입을 확인하는게 불가능합니다. JVM은 stringList가 스트링의 리스트인지 이해할 수 없기 때문입니다. 
+한편 자바의 경우에는 아래와 같이 리스트의 타입을 확인하는게 불가능합니다. JVM은 stringList가 스트링의 리스트인지 이해할 수 없기 때문입니다. 
 
 ```java
 boolean b = stringList instanceof List<String>;	//Illegal generic type for instanceof
@@ -175,7 +171,7 @@ boolean b = stringList instanceof List<String>;	//Illegal generic type for insta
 그나마 stringList가 리스트인지 여부만 확인이 가능합니다.
 
 ```java
-boolean b = strings instanceof List;	
+boolean b = stringList instanceof List;	
 ```
 
 <br>
