@@ -42,20 +42,6 @@ public class Entry {
 
 <br>
 
-
-
-```java
-Entry entry = new Entry("key", BigDecimal.ONE);
-
-if (entry.getKey() instanceof BigDecimal) {
-    System.out.println("key is a BigDecimal");
-} else {
-    System.out.println("Key is not a BigDecimal");
-}
-```
-
-<br>
-
 코틀린 또한 JVM을 위한 언어로 설계되었기 때문에 역시 소거의 개념이 존재합니다. 아래의 코드를 살펴보면, 일단 타입 파라미터 T에 대한 리스트를 생성하는 부분에서 에러가 나타납니다. 만약 아래의 코드가 컴파일 된다면 런타임 때 타입 매개변수에 대한 어떠한 정보도 제공 할 수 없기 때문입니다.
 
 ```kotlin
