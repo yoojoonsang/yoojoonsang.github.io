@@ -1,0 +1,45 @@
+---
+
+layout: post
+title:  "Vim #1 Add semicolons"
+categories: jekyll update
+description: Simply add a semicolon at the end of each line
+---
+아래 코드에서 각 라인의 끝에 세미콜론을 추가하는 작업을 해보겠습니다.
+```java
+  1  super.onCreate(savedInstanceState)
+  2  setContentView(R.layout.activity_second)
+  3  Intent intent = getIntent()
+  4  String text = intent.getStringExtra("text")
+  5 
+  6  TextView view = findViewById(R.id.textView2)
+  7  view.setText(text)
+```
+
+작업 결과는 다음과 같아야 합니다.
+
+```java
+  1  super.onCreate(savedInstanceState); 
+  2  setContentView(R.layout.activity_second); 
+  3  Intent intent = getIntent(); 
+  4  String text = intent.getStringExtra("text"); 
+  5  
+  6  TextView view = findViewById(R.id.textView2); 
+  7  view.setText(text); 
+```
+
+방법은 다음과 같습니다.
+
+1. Ctrl + V (블록 단위 비주얼 모드 진입)
+2. G (맨 아랫줄로 이동)
+3. $ (라인 맨 끝으로 이동)
+4. A (지정된 블록 내에서 맨 끝 행에 끼워넣기)
+5. ; (세미콜론 입력)
+6. ESC (일반모드 진입)
+7. Ctrl + E (스크린 한 줄 내리기)
+8. x (현재 글자 지우기)
+9. ZZ (저장하고 나오기)
+
+```bash
+<C-V>G$A;<Esc><C-E>xZZ
+```
